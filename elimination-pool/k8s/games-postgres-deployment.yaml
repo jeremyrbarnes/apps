@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: games-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: games-postgres
+  template:
+    metadata:
+      labels:
+        app: games-postgres
+    spec:
+      containers:
+        - name: games-postgres
+          image: postgres:13.22-alpine3.22
+          env:
+            - name: POSTGRES_DB
+              value: "games_db"
+            - name: POSTGRES_USER
+              value: "games_su"
+            - name: POSTGRES_PASSWORD
+              value: "Password123!@#"
+          ports:
+            - containerPort: 5432

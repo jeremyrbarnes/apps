@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: players-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: players-postgres
+  template:
+    metadata:
+      labels:
+        app: players-postgres
+    spec:
+      containers:
+        - name: players-postgres
+          image: postgres:13.22-alpine3.22
+          env:
+            - name: POSTGRES_DB
+              value: "players_db"
+            - name: POSTGRES_USER
+              value: "players_su"
+            - name: POSTGRES_PASSWORD
+              value: "Password123!@#"
+          ports:
+            - containerPort: 5432
