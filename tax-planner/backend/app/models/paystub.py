@@ -1,9 +1,9 @@
 from app import db
-from SQLAlchemy.orm import Mapped, mapped_column
-from SQLAlchemy import String, Integer, Float, DateTime
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Integer, Float, DateTime
 from datetime import datetime, timezone
 
-class TaxYearSettings(db.Model):
+class Paystub(db.Model):
     __tablename__ = "paystubs"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -29,4 +29,17 @@ class TaxYearSettings(db.Model):
     social_security_tax: Mapped[Float] = mapped_column(Float)
 
     medicare_tax: Mapped[Float] = mapped_column(Float)
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime, 
+        default=lambda: datetime.now(timezone.utc)
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime, 
+        default=lambda: datetime.now(timezone.utc)
+    )
+
+    def __repr__(self):
+        return f"<Paystub {self.date}: {self.payee}>"
 
